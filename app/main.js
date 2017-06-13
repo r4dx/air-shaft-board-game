@@ -1,10 +1,17 @@
-define(['jquery', 'app/map/map', 'app/map/renderer'], function ($, Map, Renderer) {
+define(
+  [
+    'jquery', 
+    'app/map/map', 
+    'app/renderer/html/map-renderer'
+  ], 
+  function ($, Map, MapRenderer) {
     $(document).ready(function() {
 
-      var gameMap = new Map(10, 10, 2);
+      var gameMap = new Map(width = 30, height = 30, inputs = 3, stopTurnChance = 0.3);
       gameMap.generate();
-      var renderer = new Renderer(gameMap, $('#map'), 100);
-      renderer.render();
-    })
+      var mapRenderer = new MapRenderer(gameMap, rootElement = $('#map'), elementSizePx = 100);
+      mapRenderer.render();
 
-});
+    })
+  }
+);

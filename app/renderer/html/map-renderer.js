@@ -1,6 +1,6 @@
 define(['jquery'], function ($) {
 
-  function Renderer(gameMap, rootElement, elementSizePx) {
+  function MapRenderer(gameMap, rootElement, elementSizePx) {
     this.render = function () {
       var table = $('<table></table>').css('table-layout', 'fixed').attr('cellspacing', 0);
 
@@ -27,5 +27,5 @@ define(['jquery'], function ($) {
     }
   }
 
-  return Renderer
+  return MapRenderer
 });

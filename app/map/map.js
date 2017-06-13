@@ -1,6 +1,6 @@
 define(function () {
 
-    function Map(width, height, inputs) {
+    function Map(width, height, inputs, stopTurnChance) {
       if (inputs >= width || inputs <= 0 || width <= 0 || height <= 1)
         throw 'Cannot create map - wrong arguments'
 
@@ -10,6 +10,7 @@ define(function () {
       this.width = width
       this.height = height
       this.inputs = inputs
+      this.stopTurnChance = stopTurnChance
       this.cells = []
 
       var getRandomInt = function (min, max) {
@@ -30,50 +31,42 @@ define(function () {
         }
       }
 
-      this.generate = function () {
-
-        initAllWalls(this)
-
+      var hackUpDownPaths = function(self) {
         var takenInputs = []
 
-        for (var i = 0; i < this.inputs; i++) {
+        for (var i = 0; i < self.inputs; i++) {
           var index = 0
 
           do {
-            index = getRandomInt(1, this.width - 2)
+            index = getRandomInt(1, self.width - 2)
           } while (takenInputs.indexOf(index) != -1 || takenInputs.indexOf(index - 1) != -1 || takenInputs.indexOf(index + 1) != -1)
             
           takenInputs.push(index)
 
-          this.cells[0][index] = this.PATH
+          self.cells[0][index] = self.PATH
 
           for (var h = 1; h < height - 1; h++) {
-            this.cells[h][index] = this.PATH
-
-            if (h % 2 != 0)
-              continue
+            self.cells[h][index] = self.PATH
 
             var oldIndex = index
+            var direction = Math.random() > 0.5 ? 0 : 1
 
-            if (index - 1 <= 1)
-              index = getRandomInt(index + 1, this.width - 2)
-            else if (index + 1 >= this.width - 2)
-              index = getRandomInt(1, index - 1)
-            else if (getRandomInt(0, 1) == 1)
-              index = getRandomInt(1, index - 1)
-            else
-              index = getRandomInt(index + 1, this.width - 2)
-                               
-            var _min = oldIndex < index ? oldIndex : index
-            var _max = oldIndex >= index ? oldIndex : index
-
-            for (var k = _min; k <= _max; k++) {
-              this.cells[h][k] = this.PATH
+            for (var k = oldIndex; (direction == 0) ? (k > 1) : (k < self.width - 2); direction == 0 ? k-- : k++) {
+              index = k
+              self.cells[h][index] = self.PATH
+              if (Math.random() <= self.stopTurnChance) {
+                break
+              }
             }
           }
 
-          this.cells[this.height - 1][index] = this.PATH
-        }
+          self.cells[self.height - 1][index] = self.PATH
+        }        
+      }
+
+      this.generate = function () {
+        initAllWalls(this)
+        hackUpDownPaths(this)
       }
     }
 
