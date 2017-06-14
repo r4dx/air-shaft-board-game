@@ -1,30 +1,41 @@
-define(['jquery'], function ($) {
+define(
+  [ 
+    'jquery', 
+    'app/renderer/html/terrain-renderer',
+    'app/game/android',
+    'app/game/alien'
+  ], function ($, TerrainRenderer, Android, Alien) {
 
-  function MapRenderer(gameMap, rootElement, elementSizePx) {
-    this.render = function () {
-      var table = $('<table></table>').css('table-layout', 'fixed').attr('cellspacing', 0);
+  function MapRenderer(gameMap) {
 
-      for (var i = 0; i < gameMap.height; i++) {
-        var row = $('<tr></tr>')
-
-        for (var k = 0; k < gameMap.width; k++) {
-          color = 'black'
-          if (gameMap.cells[i][k] == 'path')
-            color = 'white'
-          row.append($('<td></td>')
-            .width(elementSizePx)
-            .height(elementSizePx)
-            .css('heigth', elementSizePx + 'px')
-            .css('background-color', color)
-            .css('overflow', 'hidden')
-            .css('word-wrap', 'break-word'));
-        }
-
-        table.append(row);
-      }
-
-      rootElement.append(table);
+    var renderActor = function (td, objName) {
+      td.attr('align', 'center').html("<b style='color: red'>" + objName + "</b>")
     }
+
+    var renderAndroid = function (td, android) {
+      renderActor(td, 'A')
+    }
+    var renderAlien = function (td, alien) {
+      renderActor(td, '@')
+    }
+
+    var renderObject = function (self, object, position) {
+      var tdId = TerrainRenderer.generateId(position.x, position.y)
+      var td = $('#' + tdId)
+
+      // js is dynamically typed thus there's no double dispatch available
+      if (object instanceof Android)
+        renderAndroid(td, object)
+
+      if (object instanceof Alien)
+        renderAlien(td, object)
+    }
+
+    this.render = function () {
+      for (var key in gameMap.objects)
+        renderObject(this, gameMap.objects[key].object, gameMap.objects[key].position)
+    }
+
   }
 
   return MapRenderer

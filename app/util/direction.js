@@ -2,12 +2,14 @@ define(function () {
     function Direction() {}
 
     Direction.LEFT = 0
-    Direction.TOP = 1
+    Direction.UP = 1
     Direction.RIGHT = 2
     Direction.DOWN = 3
 
     Direction.calculateNewPosition = function (position, direction) {
-      var result = position
+      var result = {}
+      result.x = position.x
+      result.y = position.y
 
       if (direction == Direction.LEFT)
         result.x--
@@ -15,7 +17,7 @@ define(function () {
       if (direction == Direction.RIGHT)
         result.x++
 
-      if (direction == Direction.TOP)
+      if (direction == Direction.UP)
         result.y--
 
       if (direction == Direction.DOWN)

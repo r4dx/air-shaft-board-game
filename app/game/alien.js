@@ -1,15 +1,14 @@
 define(["app/util/math"], function (MathUtil) {
 
-    function Android(position, gameMap) {
-      this.id = "android"
+    function Alien(position, gameMap) {
+      this.id = "alien"
       this.gameMap = gameMap
       this.score = 0
       this.availableMoves = 0
-
       gameMap.set(this, position)
 
       var recalculateAvailableMoves = function (self) {
-        self.availableMoves = MathUtil.getRandomInt(1, 3)
+        self.availableMoves = MathUtil.getRandomInt(1, 6)
       }
 
       this.takeTurn = function () {
@@ -21,7 +20,6 @@ define(["app/util/math"], function (MathUtil) {
           throw "There're no moves left"
 
         this.gameMap.move(this, direction)
-
         if (--this.availableMoves != 0)
           return
 
@@ -31,6 +29,6 @@ define(["app/util/math"], function (MathUtil) {
       }
     }
 
-    return Android
+    return Alien
   }
 );

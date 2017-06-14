@@ -1,6 +1,28 @@
 define(function () {
 
-    function State() {
+    function State(android, alien) {
+
+      this.actors = [ android, alien ]
+      var currentIndex = 0
+      this.currentActor = this.actors[currentIndex]
+      this.currentActor.takeTurn()
+
+      this.nextTurn = function () {
+        if (++currentIndex >= this.actors.length)
+          currentIndex = 0
+
+        this.currentActor = this.actors[currentIndex]
+        this.currentActor.takeTurn()
+      }
+
+    }
+
+    return State
+  }
+);
+
+
+
 
 /*
 
@@ -57,17 +79,3 @@ define(function () {
   }
 
 */
-
-
-      var local = function () {
-      }
-
-
-      this.global = function () {
-      }
-
-    }
-
-    return State
-  }
-);

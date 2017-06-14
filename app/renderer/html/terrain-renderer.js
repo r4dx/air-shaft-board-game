@@ -1,7 +1,9 @@
 define([ 'jquery', "app/map/terrain" ], function ($, Terrain) {
 
   function TerrainRenderer(terrain, rootElement, elementSizePx) {
+
     this.render = function () {
+      rootElement.html("")
       var table = $('<table></table>').css('table-layout', 'fixed').attr('cellspacing', 0);
 
       for (var i = 0; i < terrain.height; i++) {
@@ -13,7 +15,7 @@ define([ 'jquery', "app/map/terrain" ], function ($, Terrain) {
           if (terrain.cells[i][k] == Terrain.PATH)
             color = 'white'
 
-          row.append($('<td></td>')
+          row.append($("<td id='" + TerrainRenderer.generateId(k, i) + "'>&nbsp;</td>")
             .width(elementSizePx)
             .height(elementSizePx)
             .css('heigth', elementSizePx + 'px')
@@ -28,6 +30,11 @@ define([ 'jquery', "app/map/terrain" ], function ($, Terrain) {
       rootElement.append(table);
     }
   }
+
+  TerrainRenderer.generateId = function(x, y) {
+    return x + "_" + y
+  }
+
 
   return TerrainRenderer
 });
