@@ -4,9 +4,6 @@ define([ "app/util/math" ], function (MathUtil) {
       if (inputs >= width || inputs <= 0 || width <= 0 || height <= 1)
         throw 'Cannot create map - wrong arguments'
 
-      this.WALL = 'wall'
-      this.PATH = 'path'
-
       this.width = width
       this.height = height
       this.inputs = inputs
@@ -17,7 +14,7 @@ define([ "app/util/math" ], function (MathUtil) {
         for (var i = 0; i < self.height; i++) {
           self.cells[i] = []
           for (var k = 0; k < self.width; k++) {
-            self.cells[i][k] = self.WALL
+            self.cells[i][k] = Terrain.WALL
           }
         }
       }
@@ -34,24 +31,24 @@ define([ "app/util/math" ], function (MathUtil) {
             
           takenInputs.push(index)
 
-          self.cells[0][index] = self.PATH
+          self.cells[0][index] = Terrain.PATH
 
           for (var h = 1; h < height - 1; h++) {
-            self.cells[h][index] = self.PATH
+            self.cells[h][index] = Terrain.PATH
 
             var oldIndex = index
             var direction = Math.random() > 0.5 ? 0 : 1
 
             for (var k = oldIndex; (direction == 0) ? (k > 1) : (k < self.width - 2); direction == 0 ? k-- : k++) {
               index = k
-              self.cells[h][index] = self.PATH
+              self.cells[h][index] = Terrain.PATH
               if (Math.random() <= self.stopTurnChance) {
                 break
               }
             }
           }
 
-          self.cells[self.height - 1][index] = self.PATH
+          self.cells[self.height - 1][index] = Terrain.PATH
         }        
       }
 
@@ -61,6 +58,9 @@ define([ "app/util/math" ], function (MathUtil) {
       }
 
     }
+
+    Terrain.WALL = "wall"
+    Terrain.PATH = "path"
 
     return Terrain
   }

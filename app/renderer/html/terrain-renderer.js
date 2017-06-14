@@ -1,4 +1,4 @@
-define(['jquery'], function ($) {
+define([ 'jquery', "app/map/terrain" ], function ($, Terrain) {
 
   function TerrainRenderer(terrain, rootElement, elementSizePx) {
     this.render = function () {
@@ -9,8 +9,10 @@ define(['jquery'], function ($) {
 
         for (var k = 0; k < terrain.width; k++) {
           color = 'black'
-          if (terrain.cells[i][k] == 'path')
+
+          if (terrain.cells[i][k] == Terrain.PATH)
             color = 'white'
+
           row.append($('<td></td>')
             .width(elementSizePx)
             .height(elementSizePx)
