@@ -10,8 +10,8 @@ define(["app/util/math"], function (MathUtil) {
       this.close = function () {
         this.state = Door.CLOSED
       }
-
     }
+
     Door.OPENED = "opened"
     Door.CLOSED = "closed"
     return Door

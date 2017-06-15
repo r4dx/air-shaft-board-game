@@ -15,7 +15,7 @@ define(
   function ($, Terrain, Map, TerrainRenderer, StateRenderer, MapRenderer, Controller, ControllerHtmlProxy, State, Android, Alien) {
     $(document).ready(function() {
 
-      var terrain = new Terrain(width = 30, height = 30, inputs = 3, stopTurnChance = 0.3)
+      var terrain = new Terrain(width = 30, height = 30, inputs = 4, stopTurnChance = 0.3)
       terrain.generate();
       var gameMap = new Map(terrain)
       var terrainRenderer = new TerrainRenderer(terrain, rootElement = $('#map'), elementSizePx = 25);

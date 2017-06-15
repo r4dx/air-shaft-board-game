@@ -44,14 +44,6 @@ define(function () {
   В инстанц роли принимается карта, чтобы видеть, что возможно, а что нет
   Реализовать класс для андроида
 
-  Android {
-    this.position
-    this.currentMoves - определяется на каждом шагу - после каждого действия
-    this.score - пересчитывается после каждого хода
-    go(direction, moves)
-    skip() - увеличивает moves
-  }
-
   FlamethrowerOperator {
     this.position
     this.currentMoves
@@ -61,16 +53,7 @@ define(function () {
     fire(alien)
   }
 
-  Alien {
-    this.position
-    this.currentMoves
-    this.score
-    go(direction, moves)
-    skip()
-    eat(target)
-  }
-
-  Mechanic {
+  Technician {
     this.position
     this.currentMoves
     this.score

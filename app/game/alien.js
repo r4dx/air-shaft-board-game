@@ -1,19 +1,11 @@
 define(
-  [ "app/util/math", "app/game/door" ], function (MathUtil, Door) {
+  [ "app/game/actor", "app/util/math", "app/game/door" ], function (Actor, MathUtil, Door) {
 
     function Alien(position, gameMap) {
-      this.id = "alien"
-      this.gameMap = gameMap
-      this.score = 0
-      this.availableMoves = 0
-      gameMap.set(this, position)
+      Actor.call(this, position, gameMap, "alien")
 
-      var recalculateAvailableMoves = function (self) {
-        self.availableMoves = MathUtil.getRandomInt(1, 6)
-      }
-
-      this.takeTurn = function () {
-        recalculateAvailableMoves(this)
+      this.recalculateAvailableMoves = function () {
+        this.availableMoves = MathUtil.getRandomInt(1, 6)
       }
 
       this.go = function (direction) {
@@ -29,7 +21,6 @@ define(
         this.gameMap.move(this, direction)
         if (--this.availableMoves != 0)
           return
-
       }
     }
 
