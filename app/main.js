@@ -20,9 +20,13 @@ define(
       var gameMap = new Map(terrain)
       var terrainRenderer = new TerrainRenderer(terrain, rootElement = $('#map'), elementSizePx = 25);
 
+      var state = new State(gameMap)
       var android = new Android(terrain.getInputs()[0], gameMap)
       var alien = new Alien(terrain.getInputs()[1], gameMap)
-      var state = new State(android, alien)
+      state.addActor(android)
+      state.addActor(alien)
+      state.nextTurn()
+
       var stateRenderer = new StateRenderer(state)
 
       var mapRenderer = new MapRenderer(gameMap)
@@ -35,7 +39,6 @@ define(
       stateRenderer.render()
 
       controllerHtmlProxy.register()
-
     })
   }
 );

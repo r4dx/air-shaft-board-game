@@ -1,4 +1,5 @@
-define(["app/util/math"], function (MathUtil) {
+define(
+  [ "app/util/math", "app/game/door" ], function (MathUtil, Door) {
 
     function Alien(position, gameMap) {
       this.id = "alien"
@@ -19,13 +20,16 @@ define(["app/util/math"], function (MathUtil) {
         if (this.availableMoves <= 0)
           throw "There're no moves left"
 
+        var collideObject = this.gameMap.getCollisionAfterMove(this, direction)
+        if (collideObject && !(collideObject instanceof Door)) {
+          collideObject.die()
+          this.score++
+        }
+
         this.gameMap.move(this, direction)
         if (--this.availableMoves != 0)
           return
 
-        var alien = this.gameMap.getObject("alien")
-        if (this.gameMap.see(this, alien))
-          this.score += 10
       }
     }
 

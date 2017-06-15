@@ -9,6 +9,12 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
         return this.objects[id].object
       }
 
+      this.removeObject = function (id) {
+        if (! (id in this.objects))
+          throw "No object '" + id + "' found"
+        delete this.objects[id]
+      }
+
       var isFree = function (self, position) {
         for (var key in self.objects) {
           if (self.objects[key].position.x == position.x && self.objects[key].position.y == position.y)
@@ -64,6 +70,14 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
         this.objects[object.id].position = position
       }
 
+      this.getCollisionAfterMove = function (object, direction) {
+        var position = Direction.calculateNewPosition(this.objects[object.id].position, direction)
+        for (var key in this.objects) {
+          if (this.objects[key].position.x == position.x && this.objects[key].position.y == position.y)
+            return this.objects[key].object
+        }
+        return null
+      }
 
     }
 

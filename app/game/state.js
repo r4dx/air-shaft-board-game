@@ -1,10 +1,16 @@
 define(function () {
 
-    function State(android, alien) {
-      this.actors = [ android, alien ]
-      var currentIndex = 0
-      this.currentActor = this.actors[currentIndex]
-      this.currentActor.takeTurn()
+    function State(gameMap) {
+      this.gameMap = gameMap
+      this.actors = [ ]
+      var currentIndex = -1
+      this.currentActor = null
+
+      this.addActor = function (actor) {
+        this.actors.push(actor)
+        var self = this
+        actor.onDie = function(actor) { self.die(actor) }
+      }
 
       this.nextTurn = function () {
         if (++currentIndex >= this.actors.length)
@@ -12,6 +18,11 @@ define(function () {
 
         this.currentActor = this.actors[currentIndex]
         this.currentActor.takeTurn()
+      }
+
+      this.die = function (actor) {
+        this.gameMap.removeObject(actor.id)
+        this.actors.splice(this.actors.indexOf(actor), 1)
       }
 
     }
