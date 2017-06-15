@@ -1,7 +1,6 @@
 define(function () {
 
     function State(android, alien) {
-
       this.actors = [ android, alien ]
       var currentIndex = 0
       this.currentActor = this.actors[currentIndex]
