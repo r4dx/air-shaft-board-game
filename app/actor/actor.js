@@ -1,13 +1,12 @@
 define(["app/util/math"], function (MathUtil) {
 
-    function Actor(position, gameMap, id) {
+    function Actor(gameMap, id) {
       this.gameMap = gameMap
       this.state = state
       this.score = 0
       this.availableMoves = 0
       this.dead = false
       this.id = id
-      gameMap.set(this, position)
 
       this.recalculateAvailableMoves = function () {
         this.availableMoves = MathUtil.getRandomInt(1, 60)

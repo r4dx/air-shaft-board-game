@@ -1,11 +1,11 @@
 define(
   [
-    "app/game/actor",
-    "app/game/door"
+    "app/actor/actor",
+    "app/actor/door"
   ], 
   function (Actor, Door) {
-    function Technician(position, gameMap) {
-      Actor.call(this, position, gameMap, "techician")
+    function Technician(gameMap) {
+      Actor.call(this, gameMap, "techician")
       this.doorsLeft = 2
 
       this.afterTurn = function() {

@@ -1,8 +1,8 @@
 define(
-  [ "app/game/actor", "app/util/math", "app/game/door" ], function (Actor, MathUtil, Door) {
+  [ "app/actor/actor", "app/util/math", "app/actor/door" ], function (Actor, MathUtil, Door) {
 
-    function Alien(position, gameMap) {
-      Actor.call(this, position, gameMap, "alien")
+    function Alien(gameMap) {
+      Actor.call(this, gameMap, "alien")
 
       this.recalculateAvailableMoves = function () {
         this.availableMoves = MathUtil.getRandomInt(1, 6)

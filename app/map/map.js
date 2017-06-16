@@ -15,8 +15,11 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
         delete this.objects[id]
       }
 
-      var isFree = function (self, position) {
+      var isFree = function (self, position, exclusions) {
         for (var key in self.objects) {
+          if (exclusions.some(element => key == element.id))
+            continue
+
           if (self.objects[key].position.x == position.x && self.objects[key].position.y == position.y)
             return false
         }
@@ -38,7 +41,7 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
           var _max = Math.max(objectPosition.x, viewerPosition.x)
 
           for (var i = _min + 1; i < max; i++)
-            if (!isFree(this, { x: i, y: objectPosition.y}))
+            if (!isFree(this, { x: i, y: objectPosition.y}, []))
               return false
         }
 
@@ -47,7 +50,7 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
           var max = Math.max(objectPosition.y, viewerPosition.y)
 
           for (var i = min + 1; i < max; i++)
-            if (!isFree(this, { x: objectPosition.x, y: i}))
+            if (!isFree(this, { x: objectPosition.x, y: i}, []))
               return false
         }
 
@@ -56,7 +59,7 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
       }
 
       this.set = function (object, position) {
-        if (!isFree(this, position))
+        if (!isFree(this, position, []))
           throw "Can't set object with id='" + object.id + "' into position {x: " + position.x + ", y: " + position.y + "}"
 
         this.objects[object.id] = { object: object, position: position } 
@@ -64,7 +67,7 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
 
       this.move = function (object, direction) {
         var position = Direction.calculateNewPosition(this.objects[object.id].position, direction)
-        if (!isFree(this, position))
+        if (!isFree(this, position, []))
           throw "Can't move object with id='" + object.id + "' into position {x: " + position.x + ", y: " + position.y + "}"
 
         this.objects[object.id].position = position
@@ -77,6 +80,16 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
             return this.objects[key].object
         }
         return null
+      }
+
+      this.getFreeInputs = function (exclusions) {
+        var result = []
+        var inputs = this.terrain.getInputs()
+        for (var i = 0; i < inputs.length; i++)
+          if (isFree(this, inputs[i], exclusions))
+            result.push(inputs[i])
+
+        return result
       }
 
     }

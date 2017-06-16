@@ -21,6 +21,10 @@ define(function () {
         return this.actors.length != 1
       }
 
+      this.move = function (direction) {
+        this.currentActor.go(direction)
+      }
+
       this.die = function (actor) {
         this.gameMap.removeObject(actor.id)
         var index = this.actors.indexOf(actor)
@@ -33,4 +37,4 @@ define(function () {
 
     return State
   }
-);
+);                                     

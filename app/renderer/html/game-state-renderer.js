@@ -6,11 +6,12 @@ define([ 'jquery' ], function ($) {
       $('#state_actor').html(state.currentActor.id)
       $('#state_score').html(state.currentActor.score)
       $('#state_ap').html(state.currentActor.availableMoves)
+      $('#status').html('Press space for next turn')
 
       if (state.currentActor.availableMoves <= 0)
-        $('#press_space').css('font-weight', 'bold')
+        $('#status').css('font-weight', 'bold')
       else
-        $('#press_space').css('font-weight', 'normal')
+        $('#status').css('font-weight', 'normal')
 
     }
   }

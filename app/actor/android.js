@@ -1,7 +1,7 @@
-define(["app/game/actor"], function (Actor) {
+define(["app/actor/actor"], function (Actor) {
 
-    function Android(position, gameMap) {
-      Actor.call(this, position, gameMap, "android")
+    function Android(gameMap) {
+      Actor.call(this, gameMap, "android")
 
       this.afterTurn = function() {
         var alien = this.gameMap.getObject("alien")

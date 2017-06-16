@@ -1,41 +1,30 @@
 define(['app/util/direction'], function (Direction) {
 
-  function Controller(state, mapRenderer, stateRenderer, terrainRenderer) {
-    this.state = state
-    this.mapRenderer = mapRenderer
-    this.stateRenderer = stateRenderer
-    this.terrainRenderer = terrainRenderer
-
-    var render = function (self) {
-      self.terrainRenderer.render()
-      self.mapRenderer.render()
-      self.stateRenderer.render()
-    }
-
-    var go = function (self, direction) {
-      self.state.currentActor.go(direction)
-      render(self)
-    }
+  function Controller(state) {
 
     this.left = function () {
-      go(this, Direction.LEFT)
+      state.move(Direction.LEFT)
+      state.renderer.render()
     }
 
     this.right = function () {
-      go(this, Direction.RIGHT)
+      state.move(Direction.RIGHT)
+      state.renderer.render()
     }
 
     this.up = function () {
-      go(this, Direction.UP)
+      state.move(Direction.UP)
+      state.renderer.render()
     }
 
     this.down = function () {
-      go(this, Direction.DOWN)
+      state.move(Direction.DOWN)
+      state.renderer.render()
     }
 
     this.space = function () {
-      this.state.nextTurn()
-      render(this)
+      state.next()
+      state.renderer.render()
     }
   }
 

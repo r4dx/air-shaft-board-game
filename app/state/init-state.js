@@ -1,24 +1,44 @@
-define([ 'app/game/technician' ], function (Technician) {
+define([ 'app/actor/technician', 'app/util/direction' ], function (Technician, Direction) {
 
     function InitState(gameMap, actors) {
-      this.gameMap = gameMap
-      this.actors = actors
       var currentIndex = -1
       this.currentActor = null
+      var inputIndex = 0
 
       var nextDoor = function (self) {
       }
 
+      this.move = function (direction) {
+        var inputs = gameMap.getFreeInputs([ this.currentActor ])
+
+        if (direction == Direction.LEFT)
+          inputIndex--
+
+        if (direction == Direction.RIGHT)
+          inputIndex++
+
+        if (inputIndex < 0)
+          inputIndex = inputs.length - 1
+
+        if (inputIndex > inputs.length - 1)
+          inputIndex = 0
+
+        gameMap.set(this.currentActor, inputs[inputIndex])
+      }
+
       this.next = function () {
+/*
         if (this.currentActor instanceof Technician && this.currentActor.doorsLeft > 0) {
           nextDoor(this)
           return
-        }
+        }*/
 
-        if (++currentIndex >= this.actors.length)
-          return false
+        inputIndex = 0
 
-        this.currentActor = this.actors[currentIndex]
+        if (++currentIndex >= actors.length)
+          return false        
+
+        this.currentActor = actors[currentIndex]
         return true
       }
     }

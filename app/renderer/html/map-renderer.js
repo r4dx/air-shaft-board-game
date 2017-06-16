@@ -2,10 +2,10 @@ define(
   [ 
     'jquery', 
     'app/renderer/html/terrain-renderer',
-    'app/game/android',
-    'app/game/alien',
-    'app/game/technician',
-    'app/game/door'
+    'app/actor/android',
+    'app/actor/alien',
+    'app/actor/technician',
+    'app/actor/door'
   ], 
   function ($, TerrainRenderer, Android, Alien, Technician, Door) {
     function MapRenderer(gameMap) {

@@ -1,30 +1,31 @@
 define(function () {
-    function State(initController, initRenderer, initState, gameController, gameRenderer, gameState) {
-      this.stateId = State.GAME
-      this.state = gameState
-      this.controller = gameController
-      this.renderer = gameRenderer
+    function State(initRenderer, initState, gameRenderer, gameState, endRenderer, endState) {
+      this.stateId = State.INIT
+      this.state = initState
+      this.renderer = initRenderer
 
       var changeState = function (self) {
         switch (self.stateId) {
           case State.INIT:
             self.stateId = State.GAME
             self.state = gameState
-            self.controller = gameController
             self.renderer = gameRenderer
             break
 
           case State.GAME:
-            self.stateId = State.INIT
-            self.state = initState
-            self.controller = initController
-            self.renderer = initRenderer
+            self.stateId = State.END
+            self.state = endState
+            self.renderer = endRenderer
             break
 
           default:
             throw 'Unknown state: ' + self.stateId
         }      
       }
+
+     this.move = function (direction) {
+       this.state.move(direction)
+     }
 
       this.next = function () {
         if (!this.state.next())
@@ -33,6 +34,7 @@ define(function () {
     }
     State.INIT = "init"
     State.GAME = "game"
+    State.END = "end"
 
     return State
 });
