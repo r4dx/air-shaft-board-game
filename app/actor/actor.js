@@ -5,7 +5,7 @@ define(["app/util/math"], function (MathUtil) {
       this.state = state
       this.score = 0
       this.availableMoves = 0
-      this.dead = false
+      this.nonActive = false
       this.id = id
 
       this.recalculateAvailableMoves = function () {
@@ -13,20 +13,21 @@ define(["app/util/math"], function (MathUtil) {
       }
 
       this.takeTurn = function () {
-        if (this.dead)
-          throw "Dead can't take turn"
+        if (this.nonActive)
+          throw "Non active can't take turn"
 
         this.recalculateAvailableMoves()
       }
 
       this.go = function (direction) {
-        if (this.dead)
-          throw "Dead can't walk"
+        if (this.nonActive)
+          throw "Non active can't walk"
 
         if (this.availableMoves <= 0)
           throw "There're no moves left"
 
-        this.gameMap.move(this, direction)
+        if (this.gameMap.move(this, direction))
+          this.win()
 
         if (--this.availableMoves != 0)
           return
@@ -34,12 +35,19 @@ define(["app/util/math"], function (MathUtil) {
         this.afterTurn()
       }
 
+      this.win = function () {
+        this.score += 10
+        this.nonActive = true
+        this.onWin(this)
+      }
+
       this.die = function () {
-        this.dead = true
+        this.nonActive = true
         this.onDie(this)
       }
 
-      this.onDie = function() {}
+      this.onDie = function (self) {}
+      this.onWin = function (self) {}
       this.afterTurn = function() {}
     }
 

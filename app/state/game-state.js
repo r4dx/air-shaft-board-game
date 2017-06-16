@@ -9,7 +9,8 @@ define(function () {
       this.addActor = function (actor) {
         this.actors.push(actor)
         var self = this
-        actor.onDie = function(actor) { self.die(actor) }
+        actor.onDie = function(actor) { self.remove(actor) }
+        actor.onWin = function(actor) { self.remove(actor) }
       }
 
       this.next = function () {
@@ -25,7 +26,7 @@ define(function () {
         this.currentActor.go(direction)
       }
 
-      this.die = function (actor) {
+      this.remove = function (actor) {
         this.gameMap.removeObject(actor.id)
         var index = this.actors.indexOf(actor)
         this.actors.splice(index, 1)

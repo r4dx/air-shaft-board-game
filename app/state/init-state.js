@@ -39,6 +39,7 @@ define([ 'app/actor/technician', 'app/util/direction' ], function (Technician, D
           return false        
 
         this.currentActor = actors[currentIndex]
+        this.move(Direction.LEFT)
         return true
       }
     }

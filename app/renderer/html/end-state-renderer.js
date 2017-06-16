@@ -6,6 +6,7 @@ define([ 'jquery' ], function ($) {
       $('#status').html('Game is finished')
 
       var table = $('#leaderboard_table')
+      table.html('')
       var row = $('<tr></tr>')
 
       row.append($("<td><b>Player</b></td>"))

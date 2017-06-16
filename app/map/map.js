@@ -71,6 +71,8 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
           throw "Can't move object with id='" + object.id + "' into position {x: " + position.x + ", y: " + position.y + "}"
 
         this.objects[object.id].position = position
+
+        return position.y == this.terrain.height - 1
       }
 
       this.getObjectToThe = function (object, direction) {
