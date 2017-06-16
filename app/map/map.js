@@ -70,7 +70,7 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
         this.objects[object.id].position = position
       }
 
-      this.getCollisionAfterMove = function (object, direction) {
+      this.getObjectToThe = function (object, direction) {
         var position = Direction.calculateNewPosition(this.objects[object.id].position, direction)
         for (var key in this.objects) {
           if (this.objects[key].position.x == position.x && this.objects[key].position.y == position.y)

@@ -12,7 +12,7 @@ define(
         if (this.availableMoves <= 0)
           throw "There're no moves left"
 
-        var collideObject = this.gameMap.getCollisionAfterMove(this, direction)
+        var collideObject = this.gameMap.getObjectToThe(this, direction)
         if (collideObject && !(collideObject instanceof Door)) {
           collideObject.die()
           this.score++

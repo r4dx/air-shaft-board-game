@@ -10,7 +10,7 @@ define(["app/util/math"], function (MathUtil) {
       gameMap.set(this, position)
 
       this.recalculateAvailableMoves = function () {
-        this.availableMoves = MathUtil.getRandomInt(1, 3)
+        this.availableMoves = MathUtil.getRandomInt(1, 60)
       }
 
       this.takeTurn = function () {
