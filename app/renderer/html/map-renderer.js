@@ -22,7 +22,7 @@ define(
         renderActor(td, 'T')
       }
       var renderDoor = function (td, door) {
-        td.text(door.state == Door.CLOSED ? '||' : '|&nbsp;&nbsp;&nbsp;|')
+        renderActor(td, door.state == Door.CLOSED ? 'X' : 'O')
       }
 
       var renderObject = function (self, object, position) {

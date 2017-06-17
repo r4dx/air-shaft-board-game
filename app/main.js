@@ -42,7 +42,7 @@ define(
     $(document).ready(function() {
 
       this.init_RendererAndState = function () {
-        this.initState = new InitState(this.gameMap, [ this.android, this.technician, this.alien ])
+        this.initState = new InitState(this.gameMap, [ this.technician, this.android, this.alien ])
         this.initState.next()
         var initStateRenderer = new InitStateRenderer(this.initState)
         this.initRenderer = new ChainRenderer( [ this.terrainRenderer, this.mapRenderer, initStateRenderer ] )

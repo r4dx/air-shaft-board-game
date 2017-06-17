@@ -14,12 +14,11 @@ define(
           this.score += 10
       }
 
-      this.setDoor = function (position) {
-        if (--doorsLeft <= 0)
+      this.createDoor = function () {
+        if (--this.doorsLeft < 0)
           throw 'No doors left to set'
 
-        var door = new Door(doorsLeft)
-        this.gameMap.set(door, position)
+        return new Door(this.doorsLeft)
       }
 
       this.close = function (direction) {

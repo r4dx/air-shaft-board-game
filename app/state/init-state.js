@@ -4,12 +4,11 @@ define([ 'app/actor/technician', 'app/util/direction' ], function (Technician, D
       var currentIndex = -1
       this.currentActor = null
       var inputIndex = 0
+      var state = InitState.ACTORS
+      var currentDoor = null
 
-      var nextDoor = function (self) {
-      }
-
-      this.move = function (direction) {
-        var inputs = gameMap.getFreeInputs([ this.currentActor ])
+      var moveActor = function (self, direction) {
+        var inputs = gameMap.getFreeInputs([ self.currentActor ])
 
         if (direction == Direction.LEFT)
           inputIndex--
@@ -23,15 +22,33 @@ define([ 'app/actor/technician', 'app/util/direction' ], function (Technician, D
         if (inputIndex > inputs.length - 1)
           inputIndex = 0
 
-        gameMap.set(this.currentActor, inputs[inputIndex])
+        gameMap.set(self.currentActor, inputs[inputIndex])
+      }
+
+      this.move = function (direction) {
+        if (state == InitState.ACTORS)
+          moveActor(this, direction)
+        else 
+          gameMap.move(currentDoor, direction)
+      }
+
+      var setDoor = function (self) {
+        currentDoor = self.currentActor.createDoor()
+        gameMap.set(currentDoor, gameMap.getFreeInputs([ ])[0])
       }
 
       this.next = function () {
-/*
-        if (this.currentActor instanceof Technician && this.currentActor.doorsLeft > 0) {
-          nextDoor(this)
-          return
-        }*/
+        if (this.currentActor instanceof Technician && state == InitState.ACTORS) {
+          state = InitState.DOORS
+        }
+
+        if (state == InitState.DOORS && this.currentActor.doorsLeft > 0) {
+           setDoor(this)
+           return true
+        }
+
+        if (state == InitState.DOORS && this.currentActor.doorsLeft == 0)
+          state = InitState.ACTORS
 
         inputIndex = 0
 
@@ -40,9 +57,12 @@ define([ 'app/actor/technician', 'app/util/direction' ], function (Technician, D
 
         this.currentActor = actors[currentIndex]
         this.move(Direction.LEFT)
+
         return true
       }
     }
+    InitState.ACTORS = 'actors'
+    InitState.DOORS = 'doors'
 
     return InitState
   }

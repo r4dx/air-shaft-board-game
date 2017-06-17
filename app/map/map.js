@@ -1,4 +1,10 @@
-define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain) {
+define(
+  [ 
+    "app/util/direction", 
+    "app/map/terrain",
+    "app/actor/door"
+  ], 
+  function (Direction, Terrain, Door) {
     function Map(terrain) {
       this.terrain = terrain
       this.objects = {}
@@ -20,7 +26,7 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
           if (exclusions.some(element => key == element.id))
             continue
 
-          if (self.objects[key].position.x == position.x && self.objects[key].position.y == position.y)
+          if (self.objects[key].position.x == position.x && self.objects[key].position.y == position.y && (!(self.objects[key].object instanceof Door) || self.objects[key].object.state == Door.CLOSED))
             return false
         }
 
@@ -78,7 +84,7 @@ define([ "app/util/direction", "app/map/terrain" ], function (Direction, Terrain
       this.getObjectToThe = function (object, direction) {
         var position = Direction.calculateNewPosition(this.objects[object.id].position, direction)
         for (var key in this.objects) {
-          if (this.objects[key].position.x == position.x && this.objects[key].position.y == position.y)
+          if (this.objects[key].position.x == position.x && this.objects[key].position.y == position.y && (!(this.objects[key].object instanceof Door) || this.objects[key].object.state == Door.CLOSED))
             return this.objects[key].object
         }
         return null
