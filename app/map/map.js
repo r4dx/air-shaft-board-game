@@ -81,13 +81,14 @@ define(
         return position.y == this.terrain.height - 1
       }
 
-      this.getObjectToThe = function (object, direction) {
+      this.getObjectsToThe = function (object, direction) {
+        var result = []
         var position = Direction.calculateNewPosition(this.objects[object.id].position, direction)
         for (var key in this.objects) {
-          if (this.objects[key].position.x == position.x && this.objects[key].position.y == position.y && (!(this.objects[key].object instanceof Door) || this.objects[key].object.state == Door.CLOSED))
-            return this.objects[key].object
+          if (this.objects[key].position.x == position.x && this.objects[key].position.y == position.y)
+            result.push(this.objects[key].object)
         }
-        return null
+        return result
       }
 
       this.getFreeInputs = function (exclusions) {

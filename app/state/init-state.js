@@ -60,6 +60,8 @@ define([ 'app/actor/technician', 'app/util/direction' ], function (Technician, D
 
         return true
       }
+
+      this.act = function(direction) { }
     }
     InitState.ACTORS = 'actors'
     InitState.DOORS = 'doors'

@@ -1,4 +1,4 @@
-define(function () {
+define(["app/actor/technician"], function (Technician) {
 
     function State(gameMap) {
       this.gameMap = gameMap
@@ -27,6 +27,11 @@ define(function () {
 
       this.move = function (direction) {
         this.currentActor.go(direction)
+      }
+
+      this.act = function(direction) { 
+        if (this.currentActor instanceof Technician)
+          this.currentActor.close(direction)
       }
 
       this.remove = function (actor) {

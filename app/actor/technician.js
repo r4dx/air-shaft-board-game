@@ -6,7 +6,7 @@ define(
   function (Actor, Door) {
     function Technician(gameMap) {
       Actor.call(this, gameMap, "techician")
-      this.doorsLeft = 2
+      this.doorsLeft = 1
 
       this.afterTurn = function() {
         var alien = this.gameMap.getObject("alien")
@@ -22,11 +22,13 @@ define(
       }
 
       this.close = function (direction) {
-        var door = this.gameMap.getObjectToThe(this, direction)
-        if (!door || !(door instanceof Door))
-          throw "Can't find door to close"
-
-        door.close()
+        var objects = this.gameMap.getObjectsToThe(this, direction)
+        for (var i = 0; i < objects.length; i++) {
+          var door = objects[i]
+          if (!door || !(door instanceof Door))
+            continue
+          door.close()
+        }
       }
     }
 

@@ -27,6 +27,10 @@ define(function () {
        this.state.move(direction)
      }
 
+     this.act = function (direction) {
+       this.state.act(direction)
+     }
+
       this.next = function () {
         if (!this.state.next())
           changeState(this)

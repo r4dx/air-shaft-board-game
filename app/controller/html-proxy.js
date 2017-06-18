@@ -14,6 +14,14 @@ define(function () {
           controller.down()
         else if(event.keyCode == 32)
           controller.space()
+        else if(event.keyCode == 65)
+          controller.actLeft()
+        else if(event.keyCode == 87)
+          controller.actUp()
+        else if(event.keyCode == 68)
+          controller.actRight()
+        else if(event.keyCode == 83)
+          controller.actDown()
       });
 
     }

@@ -26,6 +26,27 @@ define(['app/util/direction'], function (Direction) {
       state.next()
       state.renderer.render()
     }
+
+    this.actLeft = function () {
+      state.act(Direction.LEFT)
+      state.renderer.render()
+    }
+
+    this.actRight = function () {
+      state.act(Direction.RIGHT)
+      state.renderer.render()
+    }
+
+    this.actUp = function () {
+      state.act(Direction.UP)
+      state.renderer.render()
+    }
+
+    this.actDown = function () {
+      state.act(Direction.DOWN)
+      state.renderer.render()
+    }
+
   }
 
   return Controller
