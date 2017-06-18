@@ -1,28 +1,28 @@
-define([ 'app/actor/technician', 'app/util/direction' ], function (Technician, Direction) {
+define([ 'app/actor/technician', 'app/actor/alien', 'app/util/direction' ], function (Technician, Alien, Direction) {
 
     function InitState(gameMap, actors) {
       var currentIndex = -1
       this.currentActor = null
-      var inputIndex = 0
+      var spawnPointIndex = 0
       var state = InitState.ACTORS
       var currentDoor = null
 
       var moveActor = function (self, direction) {
-        var inputs = gameMap.getFreeInputs([ self.currentActor ])
+        var spawnPoints = self.currentActor instanceof Alien ? gameMap.getFreeOutputs([ self.currentActor ]) : gameMap.getFreeInputs([ self.currentActor ])
 
         if (direction == Direction.LEFT)
-          inputIndex--
+          spawnPointIndex--
 
         if (direction == Direction.RIGHT)
-          inputIndex++
+          spawnPointIndex++
 
-        if (inputIndex < 0)
-          inputIndex = inputs.length - 1
+        if (spawnPointIndex < 0)
+          spawnPointIndex = spawnPoints.length - 1
 
-        if (inputIndex > inputs.length - 1)
-          inputIndex = 0
+        if (spawnPointIndex > spawnPoints.length - 1)
+          spawnPointIndex = 0
 
-        gameMap.set(self.currentActor, inputs[inputIndex])
+        gameMap.set(self.currentActor, spawnPoints[spawnPointIndex])
       }
 
       this.move = function (direction) {
@@ -50,7 +50,7 @@ define([ 'app/actor/technician', 'app/util/direction' ], function (Technician, D
         if (state == InitState.DOORS && this.currentActor.doorsLeft == 0)
           state = InitState.ACTORS
 
-        inputIndex = 0
+        spawnPointIndex = 0
 
         if (++currentIndex >= actors.length)
           return false        

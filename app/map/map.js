@@ -115,6 +115,17 @@ define(
         return result
       }
 
+      this.getFreeOutputs = function (exclusions) {
+        var result = []
+        var outputs = this.terrain.getOutputs()
+        for (var i = 0; i < outputs.length; i++)
+          if (isFree(this, outputs[i], exclusions))
+            result.push(outputs[i])
+
+        return result
+      }
+
+
     }
 
     return Map

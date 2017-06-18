@@ -62,6 +62,17 @@ define([ "app/util/math" ], function (MathUtil) {
         return result
       }
 
+      this.getOutputs = function () {
+        var result = []
+
+        for (var i = 0; i < this.width; i++)
+          if (this.cells[this.height - 1][i] == Terrain.PATH)
+            result.push({ x: i, y: this.height - 1 })
+
+        return result
+      }
+
+
       this.generate = function () {
         initAllWalls(this)
         hackUpDownPaths(this)
