@@ -14,6 +14,9 @@ define(function () {
       }
 
       this.next = function () {
+        if (this.currentActor != null)
+          this.currentActor.afterTurn()
+
         if (++currentIndex >= this.actors.length)
           currentIndex = 0
 

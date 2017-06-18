@@ -43,10 +43,10 @@ define(
           return false
 
         if (viewerPosition.x != objectPosition.x) {
-          var _min = Math.min(objectPosition.x, viewerPosition.x)
-          var _max = Math.max(objectPosition.x, viewerPosition.x)
+          var min = Math.min(objectPosition.x, viewerPosition.x)
+          var max = Math.max(objectPosition.x, viewerPosition.x)
 
-          for (var i = _min + 1; i < max; i++)
+          for (var i = min + 1; i < max; i++)
             if (!isFree(this, { x: i, y: objectPosition.y}, []))
               return false
         }

@@ -31,8 +31,6 @@ define(["app/util/math"], function (MathUtil) {
 
         if (--this.availableMoves != 0)
           return
-
-        this.afterTurn()
       }
 
       this.win = function () {
