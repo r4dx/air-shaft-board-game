@@ -4,7 +4,7 @@ define([ 'jquery', "app/map/terrain" ], function ($, Terrain) {
 
     this.render = function () {
       rootElement.html("")
-      var table = $('<table></table>').css('table-layout', 'fixed').attr('cellspacing', 0);
+      var table = $('<table></table>').css('table-layout', 'fixed').attr('cellspacing', 0).attr('border', 1);
 
       for (var i = 0; i < terrain.height; i++) {
         var row = $('<tr></tr>')
