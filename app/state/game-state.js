@@ -27,7 +27,7 @@ define(
 
       this.next = function () {
         if (this.currentActor instanceof Alien && this.currentActor.inPanic && this.currentActor.availableMoves > 0)
-          return
+          return true
 
         if (this.currentActor != null && !this.currentActor.nonActive)
           this.currentActor.afterTurn()
