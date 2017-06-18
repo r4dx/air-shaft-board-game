@@ -16,7 +16,7 @@ define([ 'jquery' ], function ($) {
       state.actors.sort((a1, a2) => a2.score - a1.score )
 
 
-      for (var i = 0; state.actors.length; i++) {
+      for (var i = 0; i < state.actors.length; i++) {
         var row = $('<tr></tr>')
 
         row.append($("<td>" + state.actors[i].id + "</td>"))
