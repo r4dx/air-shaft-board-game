@@ -5,24 +5,28 @@ define(
     'app/actor/android',
     'app/actor/alien',
     'app/actor/technician',
+    'app/actor/flamethrower-operator',
     'app/actor/door'
   ], 
-  function ($, TerrainRenderer, Android, Alien, Technician, Door) {
+  function ($, TerrainRenderer, Android, Alien, Technician, FlamethrowerOperator, Door) {
     function MapRenderer(gameMap) {
-      var renderActor = function (td, objName) {
-        td.attr('align', 'center').html("<b style='color: red'>" + objName + "</b>")
+      var renderActor = function (td, objName, color) {
+        td.attr('align', 'center').html("<b style='color: " + color + "'>" + objName + "</b>")
       }
       var renderAndroid = function (td, android) {
-        renderActor(td, 'A')
+        renderActor(td, 'A', 'black')
       }
       var renderAlien = function (td, alien) {
-        renderActor(td, '@')
+        renderActor(td, '@', alien.inPanic ? 'red' : 'black')
       }
       var renderTechnician = function (td, technician) {
-        renderActor(td, 'T')
+        renderActor(td, 'T', 'black')
+      }
+      var renderFlamethrowerOperator = function (td, technician) {
+        renderActor(td, 'F', 'black')
       }
       var renderDoor = function (td, door) {
-        renderActor(td, door.state == Door.CLOSED ? 'X' : 'O')
+        renderActor(td, door.state == Door.CLOSED ? 'X' : 'O', 'black')
       }
 
       var renderObject = function (self, object, position) {
@@ -41,6 +45,9 @@ define(
 
         if (object instanceof Door)
           renderDoor(td, object)
+
+        if (object instanceof FlamethrowerOperator)
+          renderFlamethrowerOperator(td, object)
       }
 
       this.render = function () {

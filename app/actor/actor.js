@@ -9,7 +9,7 @@ define(["app/util/math"], function (MathUtil) {
       this.id = id
 
       this.recalculateAvailableMoves = function () {
-        this.availableMoves = MathUtil.getRandomInt(1, 60)
+        this.availableMoves = MathUtil.getRandomInt(1, 3)
       }
 
       this.takeTurn = function () {

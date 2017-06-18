@@ -17,6 +17,7 @@ define(
     'app/state/state',
     'app/actor/android',
     'app/actor/alien',
+    'app/actor/flamethrower-operator',
     'app/actor/technician'
   ], 
   function (
@@ -37,12 +38,13 @@ define(
     State, 
     Android, 
     Alien, 
+    FlamethrowerOperator,
     Technician) {
 
     $(document).ready(function() {
 
       this.init_RendererAndState = function () {
-        this.initState = new InitState(this.gameMap, [ this.technician, this.android, this.alien ])
+        this.initState = new InitState(this.gameMap, this.actors.slice())
         this.initState.next()
         var initStateRenderer = new InitStateRenderer(this.initState)
         this.initRenderer = new ChainRenderer( [ this.terrainRenderer, this.mapRenderer, initStateRenderer ] )
@@ -50,16 +52,14 @@ define(
 
       this.game_RendererAndState = function () {
         this.gameState = new GameState(this.gameMap)
-        this.gameState.addActor(this.android)
-        this.gameState.addActor(this.alien)
-        this.gameState.addActor(this.technician)
+        this.gameState.addActors(this.actors.slice())
         this.gameState.next()
         var gameStateRenderer = new GameStateRenderer(this.gameState)
         this.gameRenderer = new ChainRenderer( [this.terrainRenderer, this.mapRenderer, gameStateRenderer] )
       }
 
       this.end_RendererAndState = function () {
-        this.endState = new EndState([ this.android, this.technician, this.alien ])
+        this.endState = new EndState(this.actors.slice())
         this.endRenderer = new EndStateRenderer(this.endState)
       }
 
@@ -73,16 +73,19 @@ define(
       }
 
 
-      var terrain = new Terrain(width = 30, height = 30, inputs = 4, stopTurnChance = 0.3)
+      var terrain = new Terrain(width = 15, height = 15, inputs = 4, stopTurnChance = 0.3)
       terrain.generate();
-      this.terrainRenderer = new TerrainRenderer(terrain, rootElement = $('#map'), elementSizePx = 25);
+      this.terrainRenderer = new TerrainRenderer(terrain, rootElement = $('#map'), elementSizePx = 50);
 
       this.gameMap = new Map(terrain)
       this.mapRenderer = new MapRenderer(this.gameMap)
 
-      this.android = new Android(this.gameMap)
-      this.alien = new Alien(this.gameMap)
-      this.technician = new Technician(this.gameMap)
+      var android = new Android(this.gameMap)
+      var alien = new Alien(this.gameMap)
+      var technician = new Technician(this.gameMap)
+      var flamethrowerOperator = new FlamethrowerOperator(this.gameMap)
+      this.actors = [ technician, android, flamethrowerOperator, alien ]
+
       var controllerHtmlProxy = new ControllerHtmlProxy(this.controller())
 
       controllerHtmlProxy.register()

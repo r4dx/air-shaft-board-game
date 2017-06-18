@@ -25,7 +25,7 @@ define(
         var objects = this.gameMap.getObjectsToThe(this, direction)
         for (var i = 0; i < objects.length; i++) {
           var door = objects[i]
-          if (!door || !(door instanceof Door))
+          if (!(door instanceof Door))
             continue
           door.close()
         }

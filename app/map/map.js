@@ -91,6 +91,20 @@ define(
         return result
       }
 
+      this.directionToGetToObject = function (viewer, object) {
+        var viewerPosition = this.objects[viewer.id].position
+        var objectPosition = this.objects[object.id].position
+
+        if (viewerPosition.x != objectPosition.x && viewerPosition.y != objectPosition.y)
+          throw "Cannot detect direction"
+
+        if (viewerPosition.x == objectPosition.x)
+          return viewerPosition.y > objectPosition.y ? Direction.UP : Direction.DOWN
+
+        if (viewerPosition.y == objectPosition.y)
+          return viewerPosition.x > objectPosition.x ? Direction.LEFT : Direction.RIGHT
+      }
+
       this.getFreeInputs = function (exclusions) {
         var result = []
         var inputs = this.terrain.getInputs()
