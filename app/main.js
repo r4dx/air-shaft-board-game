@@ -51,10 +51,9 @@ define(
       }
 
       this.game_RendererAndState = function () {
-        this.gameState = new GameState(this.gameMap)
         this.gameState.addActors(this.actors.slice())
         this.gameState.next()
-        var gameStateRenderer = new GameStateRenderer(this.gameState)
+        var gameStateRenderer = new GameStateRenderer(this.gameState, this.endState)
         this.gameRenderer = new ChainRenderer( [this.terrainRenderer, this.mapRenderer, gameStateRenderer] )
       }
 
@@ -65,8 +64,8 @@ define(
 
       this.controller = function () {
         this.init_RendererAndState()
-        this.game_RendererAndState()
         this.end_RendererAndState()
+        this.game_RendererAndState()
         state = new State(this.initRenderer, this.initState, this.gameRenderer, this.gameState, this.endRenderer, this.endState)
         state.renderer.render()
         return new Controller(state)
@@ -78,9 +77,10 @@ define(
       this.terrainRenderer = new TerrainRenderer(terrain, rootElement = $('#map'), elementSizePx = 50);
 
       this.gameMap = new Map(terrain)
+      this.gameState = new GameState(this.gameMap)
       this.mapRenderer = new MapRenderer(this.gameMap)
 
-      var android = new Android(this.gameMap)
+      var android = new Android(this.gameMap, this.gameState)
       var alien = new Alien(this.gameMap)
       var technician = new Technician(this.gameMap)
       var flamethrowerOperator = new FlamethrowerOperator(this.gameMap)

@@ -5,8 +5,8 @@ define(
   ], 
   function (Actor, Door) {
     function Technician(gameMap) {
-      Actor.call(this, gameMap, "techician")
-      this.doorsLeft = 1
+      Actor.call(this, gameMap, "technician")
+      this.doorsLeft = 2
 
       this.afterTurn = function() {
         var alien = this.gameMap.getObject("alien")

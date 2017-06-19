@@ -6,10 +6,11 @@ define(["app/util/math"], function (MathUtil) {
       this.score = 0
       this.availableMoves = 0
       this.nonActive = false
+      this.dead = false
       this.id = id
 
       this.recalculateAvailableMoves = function () {
-        this.availableMoves = MathUtil.getRandomInt(1, 3)
+        this.availableMoves = MathUtil.getRandomInt(1, 4)
       }
 
       this.takeTurn = function () {
@@ -26,8 +27,11 @@ define(["app/util/math"], function (MathUtil) {
         if (this.availableMoves <= 0)
           throw "There're no moves left"
 
-        if (this.gameMap.move(this, direction))
+        if (this.gameMap.move(this, direction)) {
           this.win()
+          this.availableMoves = 0
+          return
+        }
 
         if (--this.availableMoves != 0)
           return
@@ -41,6 +45,7 @@ define(["app/util/math"], function (MathUtil) {
 
       this.die = function () {
         this.nonActive = true
+        this.dead = true
         this.onDie(this)
       }
 

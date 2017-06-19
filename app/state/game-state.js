@@ -11,6 +11,7 @@ define(
       this.actors = [ ]
       var currentIndex = -1
       this.currentActor = null
+      this.playersWon = 0
 
       this.addActors = function (actors) {
         for (var i = 0; i < actors.length; i++)
@@ -21,8 +22,10 @@ define(
         this.actors.push(actor)
         var self = this
         actor.onDie = function(actor) { self.remove(actor) }
-        actor.onWin = function(actor)
-         self.remove(actor); 
+        actor.onWin = function(actor) {
+         self.remove(actor)
+         self.playersWon++
+        }
       }
 
       this.next = function () {
