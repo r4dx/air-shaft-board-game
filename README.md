@@ -9,11 +9,12 @@ This is alien inspired prototype of a board game.
 1. Cat - gets a lot of AP
 1. Alien - gets a lot of AP and can eat characters. Each time it eats character it gets 10 score points except the time when it eats android as described below
 
-The goal for each character except the alien is to get away from the map - you get 20 score points in that case.
+The goal for each character except the alien is to get away from the map - you get 10 score points in that case.
+Additionally if at the end of your turn you can see the alien - you get additional 10 score points.
 
 # Android 
 
-Anyone who gets the Android card becames android - if alien kills android it only gets 1 score point. In case android gets off the map first he gets 30 score points and alien gets 10.
+Anyone who gets the Android card becames android - if alien kills android it only gets 1 score point. In case android gets off the map first he gets 20 score points and alien gets 10.
 
 # How to run
 

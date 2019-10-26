@@ -45,7 +45,7 @@ define(["app/util/math"], function (MathUtil) {
           alien.score += 10
         }
 
-        this.score += 20
+        this.score += 10
         this.nonActive = true
         this.onWin(this)
       }
