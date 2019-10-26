@@ -1,8 +1,8 @@
 define(
-  [ "app/actor/actor", "app/actor/android", "app/util/math", "app/actor/door" ], function (Actor, Android, MathUtil, Door) {
+  [ "app/actor/actor", "app/util/math", "app/actor/door" ], function (Actor, MathUtil, Door) {
 
-    function Alien(gameMap) {
-      Actor.call(this, gameMap, "alien")
+    function Alien(gameMap, gameState) {
+      Actor.call(this, gameMap, gameState, "alien")
       this.inPanic = false
       var bannedDirection = null
 
@@ -22,7 +22,7 @@ define(
           var collideObject = collideObjects[i]
           if (!(collideObject instanceof Door)) {
             collideObject.die()
-            this.score += collideObject instanceof Android ? 1 : 10
+            this.score += collideObject.isAndroid ? 1 : 10
           }
         }
 

@@ -1,6 +1,6 @@
 define(["app/util/math"], function (MathUtil) {
 
-    function Actor(gameMap, id) {
+    function Actor(gameMap, gameState, id) {
       this.gameMap = gameMap
       this.state = state
       this.score = 0
@@ -8,6 +8,7 @@ define(["app/util/math"], function (MathUtil) {
       this.nonActive = false
       this.dead = false
       this.id = id
+      this.isAndroid = false
 
       this.recalculateAvailableMoves = function () {
         this.availableMoves = MathUtil.getRandomInt(1, 4)
@@ -38,7 +39,13 @@ define(["app/util/math"], function (MathUtil) {
       }
 
       this.win = function () {
-        this.score += 10
+        if (this.isAndroid && gameState.playersWon == 0) {
+          this.score += 10
+          var alien = this.gameMap.getObject("alien")
+          alien.score += 10
+        }
+
+        this.score += 20
         this.nonActive = true
         this.onWin(this)
       }

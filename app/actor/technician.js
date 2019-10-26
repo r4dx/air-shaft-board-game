@@ -4,8 +4,8 @@ define(
     "app/actor/door"
   ], 
   function (Actor, Door) {
-    function Technician(gameMap) {
-      Actor.call(this, gameMap, "technician")
+    function Technician(gameMap, gameState) {
+      Actor.call(this, gameMap, gameState, "technician")
       this.doorsLeft = 2
 
       this.afterTurn = function() {

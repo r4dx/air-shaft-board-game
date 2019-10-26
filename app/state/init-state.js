@@ -1,11 +1,31 @@
-define([ 'app/actor/technician', 'app/actor/alien', 'app/util/direction' ], function (Technician, Alien, Direction) {
+define(
+  [ 
+    'app/actor/technician', 
+    'app/actor/alien', 
+    'app/util/direction',
+    'app/util/math'
+  ], 
+  function (Technician, Alien, Direction, MathUtil) {
 
     function InitState(gameMap, actors) {
+
+      var chooseRandomAndroid = function () {
+        var candidates = []
+        for (var i = 0; i < actors.length; i++)
+          if (!(actors[i] instanceof Alien))
+            candidates.push(actors[i])
+
+        candidates[MathUtil.getRandomInt(0, candidates.length - 1)].isAndroid = true
+      }
+
+
       var currentIndex = -1
       this.currentActor = null
       var spawnPointIndex = 0
       var state = InitState.ACTORS
       var currentDoor = null
+      chooseRandomAndroid()
+          
 
       var moveActor = function (self, direction) {
         var spawnPoints = self.currentActor instanceof Alien ? gameMap.getFreeOutputs([ self.currentActor ]) : gameMap.getFreeInputs([ self.currentActor ])

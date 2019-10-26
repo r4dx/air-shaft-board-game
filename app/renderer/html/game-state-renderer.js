@@ -30,6 +30,9 @@ define([ 'jquery', 'app/actor/alien' ], function ($, Alien) {
       if (state.currentActor instanceof Alien && state.currentActor.inPanic)
         actor += " (panic!)"
 
+      if (state.currentActor.isAndroid)
+        actor += " (android)"
+
       $('#state_actor').html(actor)
       $('#state_score').html(state.currentActor.score)
       $('#state_ap').html(state.currentActor.availableMoves)

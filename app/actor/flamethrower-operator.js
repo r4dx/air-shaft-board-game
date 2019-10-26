@@ -4,8 +4,8 @@ define(
     "app/actor/alien"
   ], 
   function (Actor, Alien) {
-    function FlamethrowerOperator(gameMap) {
-      Actor.call(this, gameMap, "flamethrower-operator")
+    function FlamethrowerOperator(gameMap, gameState) {
+      Actor.call(this, gameMap, gameState, "flamethrower-operator")
       var fuelTanksLeft = 1
 
       this.afterTurn = function() {

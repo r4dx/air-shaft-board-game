@@ -15,7 +15,7 @@ define(
     'app/state/init-state',
     'app/state/end-state',
     'app/state/state',
-    'app/actor/android',
+    'app/actor/cat',
     'app/actor/alien',
     'app/actor/flamethrower-operator',
     'app/actor/technician'
@@ -36,7 +36,7 @@ define(
     InitState, 
     EndState, 
     State, 
-    Android, 
+    Cat, 
     Alien, 
     FlamethrowerOperator,
     Technician) {
@@ -80,11 +80,11 @@ define(
       this.gameState = new GameState(this.gameMap)
       this.mapRenderer = new MapRenderer(this.gameMap)
 
-      var android = new Android(this.gameMap, this.gameState)
-      var alien = new Alien(this.gameMap)
-      var technician = new Technician(this.gameMap)
-      var flamethrowerOperator = new FlamethrowerOperator(this.gameMap)
-      this.actors = [ technician, android, flamethrowerOperator, alien ]
+      var cat = new Cat(this.gameMap, this.gameState, this.gameState)
+      var alien = new Alien(this.gameMap, this.gameState)
+      var technician = new Technician(this.gameMap, this.gameState)
+      var flamethrowerOperator = new FlamethrowerOperator(this.gameMap, this.gameState)
+      this.actors = [ technician, cat, flamethrowerOperator, alien ]
 
       var controllerHtmlProxy = new ControllerHtmlProxy(this.controller())
 

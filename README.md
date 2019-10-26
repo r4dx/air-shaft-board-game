@@ -1,36 +1,27 @@
 # alien_board_game
 
-Есть лабиринт (вентялицонная шахта) и 3 игрока в нем, а также один чужой - всего в игру играют 4 человека.
-В лабиринте несколько входов и выходов, задача игроков - добраться до выхода, задача чужого - съесть как можно больше игроков.
-Если чужой вошел в одну клетку с игроком - он его съел.
+This is alien inspired prototype of a board game.
 
-Игроки двигаются по клеткам внутри лабиринта, бросая кубик на 4 - результат - это максимальное количество клеток, на которые может продвинуться игрок. Чужой в свою очередь бросает кубик на 6.
+# Roles
 
-Есть 4 роли, которые выбираются на старте случайным образом:
+1. Flamethrower operator - has 1 attempt to burn alien. When alien is afire, the next move it panics and thus only can move in the opposite direction.
+1. Technician - when the game begins you choose 2 positions for doors ("O" sign). Technician can close those doors when near them - no other character can do anything with doors and when it's closed noone can move thru it.
+1. Cat - gets a lot of AP
+1. Alien - gets a lot of AP and can eat characters. Each time it eats character it gets 10 score points except the time when it eats android as described below
 
-1. Огнеметчик - если чужой на прямой линии от огнеметчика и между ними нет никаких препятствий, огнеметчик может выстрелить и чужой на следующий свой ход впадает в панику - обязан истратить все свои АР и не может ходить в сторону огнеметчика. У огнеметчика всего 1 выстрел в запасе.
-2. Механик - в начале игры, человек, вытянувший эту карту, расставляет 2 двери, дверь он сможет закрыть, когда подойдет близко к ней, никто другой не может ни закрыть ни открыть дверь
-3. Андроид - вытянувший эту карту - андроид, чужой получает всего 1 очко за убийство андроида. Если андроид выбирается из лабиринта первым, чужой получает +10 и андроид получает +20.
-4. Чужой
+The goal for each character except the alien is to get away from the map - you get 20 score points in that case.
 
-Затем игроки располагаются каждый в начале своего входа (разбирается по часовой стрелке), а чужой у любого выхода.
+# Android 
 
-Подсчет очков:
+Anyone who gets the Android card becames android - if alien kills android it only gets 1 score point. In case android gets off the map first he gets 30 score points and alien gets 10.
 
-1. Чужой за убийство каждого человека получает 10 очков
-2. Каждый выбравшийся из лабиринта получает 10 очков
-3. Если андроид выбирается первым, он получает 20 очков (и чужой дополнительно получает 10)
-4. В конце каждого хода, если игрок видит чужого (на прямой в лабиринте), он получает 10 очков
+# How to run
 
-Выигрывает выживший игрок с наибольшим количеством очков (или чужой)
+1. Start alien.html
+1. Put figures on their positions - use Space to confirm position
 
-Эдж кейсы:
+# Controls
 
-1. Механик может запереть игроков и тогда никто не сможет добраться до выхода, а чужой не сможет их съесть
-2. Огнеметчик пульнул в чужого, а тот начал метаться в другой плоскости, например, вверх/вниз и в итоге никуда не сдвинулся
-
-Идеи:
-
-1. Добавить кота
-2. Кто угодно может быть андроидом - это выбирается рандомно на старте и скрывается самим игроком. Чужой может прочекать андроид игрок или нет, если видит его напрямую
-3. Интересней будет если игроки не видят чужого и чужой игроков
+1. Left/Right/Up/Down - movement
+1. WASD - action in specific direction
+1. Space - end turn
