@@ -1,6 +1,6 @@
-# alien_board_game
+# air-shaft-board-game
 
-This is alien inspired prototype of a board game.
+This is Alien inspired prototype of a board game.
 
 # Roles
 
@@ -18,7 +18,7 @@ Anyone who gets the Android card becames android - if alien kills android it onl
 
 # How to run
 
-1. Start alien.html
+1. Start game.html
 1. Put figures on their positions - use Space to confirm position
 
 # Controls
